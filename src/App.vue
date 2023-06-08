@@ -1,6 +1,11 @@
 <template>
-  <div id="app">
-    <RankingTable :participants="participants"></RankingTable>
+  <div id="app" class="d-flex flex-column">
+    <div class="mb-4">
+      <h2>APUESTA LOL</h2>
+    </div>
+    <div class="mx-5">
+      <RankingTable :participants="participants"></RankingTable>
+    </div>
   </div>
 </template>
 
@@ -23,7 +28,7 @@ export default {
           'rankInfo': {}
         },
         {
-          'summonerName': 'SuportChoco',
+          'summonerName': 'G2 Joker',
           'goal': '',
           'accountInfo': {},
           'rankInfo': {}
@@ -49,7 +54,7 @@ export default {
           let url = 'https://euw1.api.riotgames.com/lol/league/v4/entries/by-summoner/'+p.accountInfo.id+'?api_key='+this.apiKey;
           axios.get(url)
             .then(response2 => {
-              p.rankInfo = response2.data;
+              p.rankInfo = response2.data.filter(r => r.queueType == 'RANKED_SOLO_5x5')[0];
               console.log(response2.data);
             })
             .catch(error => {
@@ -75,4 +80,5 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
 </style>
